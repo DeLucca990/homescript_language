@@ -1,0 +1,63 @@
+(* EBNF for the PDL language - .pdl extension *)
+
+program = declaration ;
+
+declaration = variable_declaration | function_declaration | command_declaration ;
+
+variable_declaration = "var" identifier [ ":" type ] [ "=" expression ] ";" ;
+
+function_declaration = "func" identifier "(" [ parameters ] ")" [ ":" type ] block ;
+
+command_declaration = command ;
+
+parameters = parameter { "," parameter } ;
+
+parameter = identifier ":" type ;
+
+type = "integer" | "decimal" | "text" | "boolean" ;
+
+block = "{" { command_declaration } "}" ;
+
+command = expression_command
+        | if_command
+        | while_command
+        | return_command ;
+
+expression_command = expression ";" ;
+
+if_command = "if" "(" expression ")" block [ "else" block ] ;
+
+while_command = "while" "(" expression ")" block ;
+
+return_command = "return" [ expression ] ";" ;
+
+expression = equality_expression ;
+
+equality_expression = relational_expression { ("==" | "!=") relational_expression } ;
+
+relational_expression = addition_expression { ("<" | ">" | "<=" | ">=") addition_expression } ;
+
+addition_expression = multiplication_expression { ("+" | "-") multiplication_expression } ;
+
+multiplication_expression = unary_expression { ("*" | "/") unary_expression } ;
+
+unary_expression = ("!" | "-") unary_expression | primary_expression ;
+
+primary_expression = number
+                  | text
+                  | "true"
+                  | "false"
+                  | identifier
+                  | "(" expression ")" ;
+
+identifier = letter { letter | digit | "_" } ;
+
+number = digit { digit } [ "." digit { digit } ] ;
+
+text = '"' { character } '"' ;
+
+letter = "a" | ... | "z" | "A" | ... | "Z" ;
+
+digit = "0" | ... | "9" ;
+
+character = any ASCII character except '"' ;
