@@ -1,43 +1,55 @@
-# Pdl Language
+# HomeScript Language
 
 ## Context:
-Pdl is a general-purpose programming language designed to be simple, intuitive, and educational. Its primary goal is to teach fundamental concepts of programming logic and algorithm development. The language supports basic types (`integer`, `decimal`, `text`, and `boolean`), arithmetic and logical operations, typed function parameters, and conditional (`if`/`else`), looping (`while`) constructs and have 
-built-in `print` function. 
+**HomeScript** is a domain-specific programming language (DSL) designed to simplify home automation tasks. With an intuitive, easy-to-learn syntax, it enables users to quickly and clearly define rules for the intelligent control of household devices.
 
-## Code Example:
-```bash
-var message: text = "Hello World PDL!";
-var counter: integer = 0;
+By leveraging everyday events such as "motion detection", "door opening", or time-based conditions like specific hours, users can effortlessly create automations to make their homes safer, more comfortable, and more efficient.
 
-func hello_world(name: text): text {
-    return "Hello, " + name + "!";
+**Main features:**
+
+- Simple, user-friendly syntax;
+- Clear definition of rules based on events and actions;
+- Easy configuration of smart home devices;
+- Ideal for users without prior programming experience.
+
+## Code Examples:
+**Motion Detection at night:**
+```homs
+when motion_detected in "garage" after 23:00 {
+    turn_on "garage_light"
+    notify "smartphone", "Motion detected in the garage at night!"
 }
+```
 
-func factorial(n: integer): integer {
-    var result: integer = 1;
-    while (n > 1) {
-        result = result * n;
-        n = n - 1;
-    }
-    return result;
+**Morning Routine Automation:**
+```homs
+when motion_detected in "bedroom" after 06:00 {
+    turn_on "coffee_maker"
+    play_music "bedroom_speaker", "Morning Playlist"
+    open "window_blinds"
 }
+```
 
-func main() {
-    print(message);
-
-    var name: text = "Explorer";
-    print(hello_world(name));
-
-    var num: integer = 5;
-    print("The factorial of " + num + " is:");
-    print(factorial(num));
-
-    if (num > 0) {
-        print("Positive number!");
-    } else {
-        print("Zero or negative number.");
-    }
+**Door Security:**
+```homs
+when door_opened in "front_door" before 07:00 {
+    activate_alarm "security_system"
+    notify "smartphone", "Front door opened before 7 AM!"
 }
+```
 
-main();
+**Temperature Control:**
+```homs
+when temperature_high in "living_room" after 14:00 {
+    turn_on "air_conditioner"
+    set_temperature "air_conditioner", "22"
+    notify "smartphone", "Air conditioning activated, temperature set to 22°C."
+}
+```
+
+**Direct Device Control (without conditions):**
+```homs
+turn_off "living_room_light"
+lock "front_door"
+set_temperature "bedroom1_thermostat", "20"
 ```

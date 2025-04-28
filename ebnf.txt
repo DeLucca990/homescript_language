@@ -1,63 +1,41 @@
-(* EBNF for the PDL language - .pdl extension *)
+program         = { statement } ;
 
-program = declaration ;
+statement       = rule | action_statement ;
 
-declaration = variable_declaration | function_declaration | command_declaration ;
+rule            = "when", condition, "{", { action_statement }, "}" ;
 
-variable_declaration = "var" identifier [ ":" type ] [ "=" expression ] ";" ;
+condition       = event, [time_condition] ;
 
-function_declaration = "func" identifier "(" [ parameters ] ")" [ ":" type ] block ;
+event           = identifier, "in", location ;
 
-command_declaration = command ;
+time_condition  = ("after" | "before"), time ;
 
-parameters = parameter { "," parameter } ;
+action_statement = action, arguments ;
 
-parameter = identifier ":" type ;
+action          = identifier ;
 
-type = "integer" | "decimal" | "text" | "boolean" ;
+arguments       = argument, { ",", argument } ;
 
-block = "{" { command_declaration } "}" ;
+argument        = string | location | device | identifier ;
 
-command = expression_command
-        | if_command
-        | while_command
-        | return_command ;
+location        = string ;
 
-expression_command = expression ";" ;
+device          = string ;
 
-if_command = "if" "(" expression ")" block [ "else" block ] ;
+time            = hour, ":", minute ;
 
-while_command = "while" "(" expression ")" block ;
+hour            = digit, [digit] ;
+minute          = digit, digit ;
 
-return_command = "return" [ expression ] ";" ;
+identifier      = letter, { letter | digit | "_" } ;
+string          = '"', { character }, '"' ;
 
-expression = equality_expression ;
+digit           = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+letter          = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" 
+                | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" 
+                | "u" | "v" | "w" | "x" | "y" | "z" 
+                | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" 
+                | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" 
+                | "U" | "V" | "W" | "X" | "Y" | "Z" ;
 
-equality_expression = relational_expression { ("==" | "!=") relational_expression } ;
-
-relational_expression = addition_expression { ("<" | ">" | "<=" | ">=") addition_expression } ;
-
-addition_expression = multiplication_expression { ("+" | "-") multiplication_expression } ;
-
-multiplication_expression = unary_expression { ("*" | "/") unary_expression } ;
-
-unary_expression = ("!" | "-") unary_expression | primary_expression ;
-
-primary_expression = number
-                  | text
-                  | "true"
-                  | "false"
-                  | identifier
-                  | "(" expression ")" ;
-
-identifier = letter { letter | digit | "_" } ;
-
-number = digit { digit } [ "." digit { digit } ] ;
-
-text = '"' { character } '"' ;
-
-letter = "a" | ... | "z" | "A" | ... | "Z" ;
-
-digit = "0" | ... | "9" ;
-
-character = any ASCII character except '"' ;
+character       = letter | digit | " " | "_" | "-" | "." | "!" | "?" ;
