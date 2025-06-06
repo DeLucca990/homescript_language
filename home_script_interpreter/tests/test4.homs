@@ -1,0 +1,4 @@
+when motion_detected in "garage" after 23:00 {
+    turn_on "garage_light"
+    notify "smartphone", "Motion detected in the garage at night!"
+}

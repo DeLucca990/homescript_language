@@ -1,0 +1,4 @@
+turn_off "living_room_light"
+lock "front_door"
+set_temperature "bedroom1_thermostat", "20"
+notify "smartphone", "Routine nighttime setup completed"

@@ -1,0 +1,5 @@
+when temperature_high in "living_room" after 14:00 {
+    turn_on "air_conditioner"
+    set_temperature "air_conditioner", "22"
+    notify "smartphone", "Air conditioning activated, temperature set to 22°C."
+}

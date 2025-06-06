@@ -1,0 +1,2 @@
+notify "device1", "Sensor #32 triggered at 23:15!"
+log_event "sensor_module", "ALERT", "Zone 4 breached!"

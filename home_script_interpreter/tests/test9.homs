@@ -1,0 +1,9 @@
+lock "back_door"
+set_temperature "bedroom2_thermostat", "19"
+
+when temperature_low in "bedroom2" before 06:00 {
+    turn_on "heater"
+    notify "smartphone", "Heating activated early"
+}
+
+turn_off "living_room_tv"

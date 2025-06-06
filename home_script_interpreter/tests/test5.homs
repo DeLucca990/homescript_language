@@ -1,0 +1,4 @@
+when temperature_high in "kitchen" after 12:30 {
+    turn_on "ventilation_system"
+    notify "smartphone", "Kitchen is too hot!"
+}

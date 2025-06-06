@@ -1,0 +1,8 @@
+when door_opened in "front_door" before 07:00 {
+    activate_alarm "security_system"
+    notify "smartphone", "Door opened before 7AM"
+}
+
+when window_opened in "bedroom1" {
+    notify "smartphone", "Window opened"
+}
