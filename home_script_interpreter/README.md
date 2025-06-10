@@ -2,6 +2,8 @@
 
 A Kotlin-based interpreter for the HomeScript automation language. This tool parses and executes event-driven scripts defined in the HomeScript DSL, printing conditions and actions to the console.
 
+__Note__: Although the long-term goal is to integrate this interpreter into an Android application, the current implementation runs only in the terminal environment and prints output to the console.
+
 ## Features
 
 * **Rule Parsing**: Supports `Rule` statements with event conditions and optional time restrictions.
